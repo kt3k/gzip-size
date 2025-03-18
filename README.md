@@ -22,9 +22,9 @@ See `deno jsr:@kt3k/gzip-size -h` for more details.
 # API usage
 
 ```ts
-import { gzipSize } from "jsr:@kt3k/gzip-size/lib";
+import { gzipSize } from "jsr:@kt3k/gzip-size/lib"
 
-gzipSize(bytes);
+gzipSize(bytes)
 // returns gzipped size of the bytes
 ```
 
