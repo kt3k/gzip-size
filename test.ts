@@ -1,5 +1,7 @@
-import { gzipSize } from "./mod.ts";
-import { assert } from "https://deno.land/std@0.121.0/testing/asserts.ts";
+// Copyright 2021 - 2025 Yoshiya Hinosawa. MIT License.
+
+import { gzipSize } from "./lib.ts";
+import { assert } from "@std/assert/assert";
 
 Deno.test("gzipSize", () => {
   assert(gzipSize(fixture) < fixture.length);

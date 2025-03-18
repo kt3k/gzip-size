@@ -1,7 +1,7 @@
 version: 0.3.0
-commit: 'chore: bump to v%.%.%'
+commit: "chore: bump to %.%.%"
 files:
   README.md:
-    - gzip_size v%.%.%
-    - 'https://deno.land/x/gzip_size@v%.%.%/cli.ts'
-    - 'https://deno.land/x/gzip_size@v%.%.%/mod.ts'
+    - gzip-size %.%.%
+  deno.json:
+    - '"version": "%.%.%"'

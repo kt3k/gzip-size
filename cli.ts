@@ -1,6 +1,8 @@
-import { parse } from "https://deno.land/std@0.121.0/flags/mod.ts";
-import { gzipSize } from "./mod.ts";
-import { prettyBytes } from "https://deno.land/std@0.121.0/fmt/bytes.ts";
+// Copyright 2021 - 2025 Yoshiya Hinosawa. MIT License.
+
+import { parseArgs } from "@std/cli/parse-args";
+import { gzipSize } from "./lib.ts";
+import { format } from "@std/fmt/bytes";
 
 type Args = {
   decimal: boolean;
@@ -17,7 +19,7 @@ const {
   "include-original": includeOriginal,
   raw,
   _: args,
-} = parse(Deno.args, {
+} = parseArgs(Deno.args, {
   string: ["level"],
   boolean: ["decimal", "help", "raw", "include-original"],
   alias: {
@@ -27,7 +29,7 @@ const {
 }) as Args;
 
 if (help) {
-  console.log(`Usage: gzip_size [options] <filename>
+  console.log(`Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>
 
 Options:
   --level             Compression level [0-9] (Default: 9)
@@ -39,33 +41,29 @@ Options:
 Note: The sizes are shown in binary byte units by default (e.g. kibibyte, mebibyte)
 
 Examples
-  $ gzip-size unicorn.png
+  $ deno -R jsr:@kt3k/gzip-size unicorn.png
   347 kiB
-  $ gzip-size unicorn.png --raw
+  $ deno -R jsr:@kt3k/gzip-size unicorn.png --raw
   355041
-  $ gzip-size unicorn.png --include-original
+  $ deno -R jsr:@kt3k/gzip-size unicorn.png --include-original
   357 kiB → 347 kiB
-  $ gzip-size unicorn.png --include-original -d
+  $ deno -R jsr:@kt3k/gzip-size unicorn.png --include-original -d
   365 kB → 355 kB`);
   Deno.exit(0);
 }
 
 if (args.length === 0) {
   console.log("Error: No file is given");
-  console.log("Usage: gzip_size [options] <filename>");
+  console.log("Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>");
   Deno.exit(1);
 }
 
 let bytes: Uint8Array;
 try {
   bytes = await Deno.readFile(args[0]);
-} catch (e) {
-  if (e.name === "PermissionDenied") {
-    console.log(e);
-    Deno.exit(1);
-  }
+} catch {
   console.log(`Error: Cannot read file "${args[0]}"`);
-  console.log("Usage: gzip_size [options] <filename>");
+  console.log("Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>");
   Deno.exit(1);
 }
 
@@ -78,12 +76,12 @@ if (includeOriginal && raw) {
   console.log(originalLength + " → " + gzippedSize);
 } else if (includeOriginal) {
   console.log(
-    prettyBytes(originalLength, { binary }),
+    format(originalLength, { binary }),
     "→",
-    prettyBytes(gzippedSize, { binary }),
+    format(gzippedSize, { binary }),
   );
 } else if (raw) {
   console.log(String(gzippedSize));
 } else {
-  console.log(prettyBytes(gzippedSize, { binary }));
+  console.log(format(gzippedSize, { binary }));
 }

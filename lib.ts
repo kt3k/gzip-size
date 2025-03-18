@@ -1,4 +1,6 @@
-import { gzip } from "https://deno.land/x/compress@v0.4.1/gzip/gzip.ts";
+// Copyright 2021 - 2025 Yoshiya Hinosawa. MIT License.
+
+import { gzip } from "@deno-library/compress";
 
 /**
  * The options for gzipSize function

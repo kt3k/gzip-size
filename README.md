@@ -1,34 +1,28 @@
-# gzip_size v0.3.0
+# gzip-size 0.3.0
 
-[![ci](https://github.com/kt3k/gzip_size/actions/workflows/ci.yml/badge.svg)](https://github.com/kt3k/gzip_size/actions/workflows/ci.yml)
+[![ci](https://github.com/kt3k/gzip-size/actions/workflows/ci.yml/badge.svg)](https://github.com/kt3k/gzip-size/actions/workflows/ci.yml)
 
 > Shows the gzipped size of the given file
 
 # CLI usage
 
-You can install the command with the following command
-
-```sh
-deno install -qf --allow-read https://deno.land/x/gzip_size@v0.3.0/cli.ts
-```
-
 ```shellsession
-$ gzip_size tiger.svg
+$ deno -R jsr:@kt3k/gzip-size tiger.svg
 347 kiB
-$ gzip_size tiger.svg --raw
+$ deno -R jsr:@kt3k/gzip-size tiger.svg --raw
 355041
-$ gzip_size tiger.svg --include-original
+$ deno -R jsr:@kt3k/gzip-size tiger.svg --include-original
 357 kiB → 347 kiB
-$ gzip_size tiger.svg --include-original --decimal
+$ deno -R jsr:@kt3k/gzip-size tiger.svg --include-original --decimal
 365 kB → 355 kB
 ```
 
-See `gzip_size -h` for more details.
+See `deno jsr:@kt3k/gzip-size -h` for more details.
 
 # API usage
 
 ```ts
-import { gzipSize } from "https://deno.land/x/gzip_size@v0.3.0/mod.ts";
+import { gzipSize } from "jsr:@kt3k/gzip-size/lib";
 
 gzipSize(bytes);
 // returns gzipped size of the bytes
