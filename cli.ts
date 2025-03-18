@@ -1,11 +1,5 @@
 // Copyright 2021 - 2025 Yoshiya Hinosawa. MIT License.
 
-/**
- * Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>
- *
- * @module
- */
-
 import { parseArgs } from "@std/cli/parse-args"
 import { gzipSize } from "./lib.ts"
 import { format } from "@std/fmt/bytes"
