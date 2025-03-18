@@ -1,6 +1,6 @@
 {
   "name": "@kt3k/gzip-size",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "exports": {
     ".": "./cli.ts",
     "./lib": "./lib.ts"
