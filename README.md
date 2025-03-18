@@ -1,4 +1,4 @@
-# gzip-size 0.4.2
+# gzip-size 0.4.3
 
 [![ci](https://github.com/kt3k/gzip-size/actions/workflows/ci.yml/badge.svg)](https://github.com/kt3k/gzip-size/actions/workflows/ci.yml)
 
