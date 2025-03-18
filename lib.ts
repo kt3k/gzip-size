@@ -1,5 +1,11 @@
 // Copyright 2021 - 2025 Yoshiya Hinosawa. MIT License.
 
+/**
+ * Shows the gzipped size of the given file.
+ *
+ * @module
+ */
+
 import { gzip } from "@deno-library/compress"
 
 /**
