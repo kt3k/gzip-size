@@ -4,14 +4,6 @@ import { parseArgs } from "@std/cli/parse-args"
 import { gzipSize } from "./lib.ts"
 import { format } from "@std/fmt/bytes"
 
-type Args = {
-  decimal: boolean
-  help: boolean
-  level: string
-  "include-original": boolean
-  raw: boolean
-  _: string[]
-}
 const {
   decimal,
   help,
@@ -26,7 +18,7 @@ const {
     h: "help",
     d: "decimal",
   },
-}) as Args
+})
 
 if (help) {
   console.log(`Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>
@@ -52,7 +44,9 @@ Examples
   Deno.exit(0)
 }
 
-if (args.length === 0) {
+const target = args[0]
+
+if (target === undefined) {
   console.log("Error: No file is given")
   console.log("Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>")
   Deno.exit(1)
@@ -60,7 +54,7 @@ if (args.length === 0) {
 
 let bytes: Uint8Array
 try {
-  bytes = await Deno.readFile(args[0])
+  bytes = await Deno.readFile(String(target))
 } catch {
   console.log(`Error: Cannot read file "${args[0]}"`)
   console.log("Usage: deno -R jsr:@kt3k/gzip-size [options] <filename>")
@@ -68,7 +62,7 @@ try {
 }
 
 const originalLength = bytes.byteLength
-const gzippedSize = gzipSize(bytes, { level: +level || 9 })
+const gzippedSize = gzipSize(bytes, { level: level ? +level : 9 })
 
 const binary = !decimal
 
